@@ -1,22 +1,12 @@
 # Fillr JS Engineer Code Test
+This JavaScript module collects the names and labels of form controls (input, select, textarea, button) from multiple frames (top frame and iframes) and dispatches a frames:loaded event in the top frame with the collected data.
 
-- Edit widget.js to create a JS 'widget' module that is executed on each frame. The widget should extract the names and labels for each html form control in the document. Each frame is already configured to load the widget script from widget/widget.js.
+Features:
+Collects form field names and labels from the top frame and all iframes.
+Merges and avoids duplicates.
+Sorts fields alphabetically by name.
+Dispatches a frames:loaded event with the collected fields once all frames have sent their data.
 
-- The top frame must collect the entire list of fields from all documents, including all descendent frames. The list of fields should be ordered by field 'name' in ascending order. See get_fields_test.js for the expected output.
-
-- When your widget has collected all the fields from all the frames, trigger a CustomEvent on the top frame document named 'frames:loaded' with a property named 'fields' within the detail.
-
-- To run the test, make sure you have npm installed, and execute `./run/test`.
-
-Notes:
-
-- Only edit the widget.js file!
-- You should use postMessage to communicate between iframes.
-- The frame documents should not be edited.
-- The test case should not be changed.
-- Karma config should not be edited.
-- The test must pass 100% of the times it is run (assuming no network errors).
-
-## Submission
-
-Please submit your code test in a public Github repo and notify mujtaba.hussain@rakuten.com when you are complete!
+How It Works:
+Each iframe collects form fields and sends them to the top frame using postMessage.
+The top frame listens for messages, merges the fields, and triggers the frames:loaded event once all frames have sent their data.
